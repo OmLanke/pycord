@@ -39,7 +39,7 @@ from .threads import Thread
 from .user import User
 
 if TYPE_CHECKING:
-    from .interactions import MessageInteraction
+    from .interactions import InteractionMetadata, MessageInteraction
 
 from .._typed_dict import NotRequired, TypedDict
 
@@ -80,6 +80,7 @@ class Attachment(TypedDict):
     duration_secs: NotRequired[float]
     waveform: NotRequired[str]
     flags: NotRequired[int]
+    title: NotRequired[str]
 
 
 MessageActivityType = Literal[1, 2, 3, 5]
@@ -125,6 +126,7 @@ class Message(TypedDict):
     sticker_items: NotRequired[list[StickerItem]]
     referenced_message: NotRequired[Message | None]
     interaction: NotRequired[MessageInteraction]
+    interaction_metadata: NotRequired[InteractionMetadata]
     components: NotRequired[list[Component]]
     thread: NotRequired[Thread | None]
     id: Snowflake
@@ -152,3 +154,8 @@ class AllowedMentions(TypedDict):
     roles: SnowflakeList
     users: SnowflakeList
     replied_user: bool
+
+
+class MessageCall(TypedDict):
+    participants: SnowflakeList
+    ended_timestamp: NotRequired[str]
